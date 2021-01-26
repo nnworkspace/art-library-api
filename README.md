@@ -2,8 +2,8 @@
 
 API of Art Library. It consists of two main modules: 
 
-1. Art work CRUD API for admins  
-2. API for lending art works from the library. This API is for normal users.
+1. Artwork CRUD API for admins  
+2. API for lending artworks from the library. Target of this API are normal members in the Alpha Org, who want to borrow artworks from the library to decorate their offices.
 
 ## Main components of this API
 
