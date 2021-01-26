@@ -1,0 +1,27 @@
+{
+  "name": "art-library-api",
+  "version": "0.0.1",
+  "description": "Art Library API Project at Alpha Org",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node cool.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nnworkspace/art-library-api.git"
+  },
+  "keywords": [
+    "api",
+    "artwork", "cool", "ascii", "faces"
+  ],
+  "author": "nn <nnworkspace@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nnworkspace/art-library-api/issues"
+  },
+  "homepage": "https://github.com/nnworkspace/art-library-api#readme",
+  "dependencies": {
+    "cool-ascii-faces": "^1.3.4"
+  }
+}
