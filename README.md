@@ -11,8 +11,9 @@ API of Art Library. It consists of two main modules:
 
 
 ## API Stories
-...
-...
+
+* [API Story :: Art Inventory at Alpha Org](./api-story_art-inventory.md)
+* API Story :: Art Lending at Alpha Org
 
 ## API Internal Cycles
 ...
