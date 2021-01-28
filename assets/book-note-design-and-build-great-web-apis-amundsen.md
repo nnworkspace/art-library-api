@@ -15,8 +15,8 @@ These two steps are iterated again and again, until there's enough information t
 Four kinds of artifacts:
 
 * *Descriptor*: name convention for nouns and verbs
-* *Diagram*: visualize workflow and internal cycles
-* *Definition*: Create a machine-readable API definition document for further implementation
+* *Diagram*: visualization of workflow and internal cycles
+* *Definition*: a machine-readable API definition document for further implementation
 * *Documentation*: basic reference documentation for both service developers and service consumers (those using the API in the future).
 
 These artifacts are also created and updated iteratively.
