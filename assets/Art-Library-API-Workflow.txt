@@ -5,7 +5,7 @@
 Home -> WIP
 WIP -> CancelWIP -> Home
 WIP -> ArtworkData(artworkName, artworkType, authors, serialNumber, 
-                description, obtainDate, obtainValue, storageLocationId, photos) -> WIP
+                description, obtainDate, storageLocationId, photos) -> WIP
 WIP -> LendingData(lenderId, artworkId, lendingDate, lendingPeriod, inUseLocationId) -> WIP
 WIP -> FinalizeWIP -> Home
 
@@ -13,25 +13,34 @@ WIP -> FinalizeWIP -> Home
 
 Home 
 -> Artwork 
--> CreateArtwork(name, artform, list<author>, serialNumber)
+-> CreateArtwork(name, artform, list<author>, serialNumber, description, obtainDate, itemLocation, list<image>)
 -> CreatedArtwork
 -> Home
 
 Home
 -> LendAction
--> CreateLendAction()
+-> CreateLendAction(borrower, artworkId, startDate, endDate, toLocation)
 -> CreatedLendAction
 -> Home
 
 Validated Names
+* Artwork := https://glossary.alpha.org/Artwork
+* CreateArtwork := https://glossary.alpha.org/CreateArtwork
+* CreatedArtwork := https://glossary.alpha.org/CreatedArtwork
 * name := https://schema.org/name
 * artform := https://schema.org/artform
 * author := https://schema.org/author
 * serialNumber := https://schema.org/serialNumber
 * description := https://schema.org/description
-....
-* Artwork := https://glossary.alpha.org/Artwork
-* CreateArtwork := https://glossary.alpha.org/CreateArtwork
-* CreatedArtwork := https://glossary.alpha.org/CreatedArtwork
+* obtainDate := https://glossary.alpha.org/obtainDate
+* itemLocation := https://schema.org/itemLocation
+* image := https://schema.org/image
+* LendAction := https://schema.org/LendAction
+* borrower := https://schema.org/borrower
+* artworkId := https://glossary.alpha.org/artworkId
+* startDate := https://schema.org/startDate
+* endDate := https://schema.org/endDate
+* toLocation := https://schema.org/toLocation
+
 
 
