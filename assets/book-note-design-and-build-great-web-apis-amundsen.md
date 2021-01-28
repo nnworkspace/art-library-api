@@ -32,3 +32,76 @@ These artifacts are also created and updated iteratively.
   + action names (CreateArtwork)
   + state names (CreatedArtwork)
 
+### Creating Sequence Diagrams
+
+It is very easy to use PlantUML for scripting sequence diagrams. Examples:
+
+1. [inventory-api-sequence.plantuml](./diagrams/inventory-api-sequence.plantuml)
+
+![Alpha Org Artwork Inventory API Sequence Diagram](./diagrams/Inventory-APISequence.png)
+
+1. [lending-api-sequence.plantuml](./diagrams/lending-api-sequence.plantuml)
+
+![Alpha Org Artwork Lending API Sequence Diagram](./diagrams/Lending-Sequence.png)
+
+
+### Describing APIs
+
+A description in a formal and standardized language should convert all requirements and features we gathered. It reflects the common understanding in the team. It is not only the foundation of further implemention, but also an essential means of communication between API designers and API builders.
+
+This description should be easily parsed by machine.
+
+And it should not depend on any single technology, document format, or API style. Because we want to allow
+further implementation in multiple technologies and API styles. 
+
+![API Description Formats](./images/alps-other-formats.png)
+
+We recommend the [*Application-Level Profile Semantics (ALPS)*](http://alps.io/) language for API description. 
+
+
+<style type="text/css">
+  body {
+    margin: auto;
+    max-width: 44em;
+    font-family: Calibri, sans-serif;
+    font-size: 18pt;
+  }
+
+  /* automatic heading numbering */
+  h1 { counter-reset: h2counter; }
+  h2 { counter-reset: h3counter; }
+  h3 { counter-reset: h4counter; }
+  h4 { counter-reset: h5counter; }
+  h5 { counter-reset: h6counter; }
+  h6 { }
+  h2:before {
+    counter-increment: h2counter;
+    content: counter(h2counter) ".\0000a0\0000a0";
+  }
+  h3:before {
+    counter-increment: h3counter;
+    content: counter(h2counter) "."
+             counter(h3counter) ".\0000a0\0000a0";
+  }
+  h4:before {
+    counter-increment: h4counter;
+    content: counter(h2counter) "."
+             counter(h3counter) "."
+             counter(h4counter) ".\0000a0\0000a0";
+  }
+  h5:before {
+    counter-increment: h5counter;
+    content: counter(h2counter) "."
+             counter(h3counter) "."
+             counter(h4counter) "."
+             counter(h5counter) ".\0000a0\0000a0";
+  }
+  h6:before {
+    counter-increment: h6counter;
+    content: counter(h2counter) "."
+             counter(h3counter) "."
+             counter(h4counter) "."
+             counter(h5counter) "."
+             counter(h6counter) ".\0000a0\0000a0";
+  }
+</style>
