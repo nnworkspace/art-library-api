@@ -1,0 +1,37 @@
+# Art Library API Workflow
+
+## Initial Design
+
+Home -> WIP
+WIP -> CancelWIP -> Home
+WIP -> ArtworkData(artworkName, artworkType, authors, serialNumber, 
+                description, obtainDate, obtainValue, storageLocationId, photos) -> WIP
+WIP -> LendingData(lenderId, artworkId, lendingDate, lendingPeriod, inUseLocationId) -> WIP
+WIP -> FinalizeWIP -> Home
+
+## Design after vocabulary validation against schema.org
+
+Home 
+-> Artwork 
+-> CreateArtwork(name, artform, list<author>, serialNumber)
+-> CreatedArtwork
+-> Home
+
+Home
+-> LendAction
+-> CreateLendAction()
+-> CreatedLendAction
+-> Home
+
+Validated Names
+* name := https://schema.org/name
+* artform := https://schema.org/artform
+* author := https://schema.org/author
+* serialNumber := https://schema.org/serialNumber
+* description := https://schema.org/description
+....
+* Artwork := https://glossary.alpha.org/Artwork
+* CreateArtwork := https://glossary.alpha.org/CreateArtwork
+* CreatedArtwork := https://glossary.alpha.org/CreatedArtwork
+
+

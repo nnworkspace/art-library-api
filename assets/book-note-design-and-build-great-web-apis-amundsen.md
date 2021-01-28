@@ -1,4 +1,4 @@
-# Note of the book *Design and Build Great Web APIs* by Michael Amundsen
+# Notes of the book *Design and Build Great Web APIs* by Michael Amundsen
 
 ## Phase 0: Modeling APIs
 
@@ -25,4 +25,10 @@ These artifacts are also created and updated iteratively.
 
 ### Identifying our API Descriptors
 
-* Use [schema.org](https://schema.org/) as a source for validating vocabularies
+* Use [schema.org](https://schema.org/) as a source for validating vocabularies. Example see: [Art-Library-API-Workflow.txt](./assets/Art-Library-API-Workflow.txt)
+* For banking industry perticularly interesting: [Banking Industry Architecture Network (BIAN)](https://bian.org/)
+* Common types of names:
+  - data names (Artwork)
+  - action names (CreateArtwork)
+  - state names (CreatedArtwork)
+
