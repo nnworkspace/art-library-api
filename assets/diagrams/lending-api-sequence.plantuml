@@ -1,0 +1,18 @@
+@startuml
+
+title Alpha Org Artwork Lending API\nSequence Diagram
+
+Home -> WIP : startLending
+activate WIP 
+
+WIP -> lendingData : collectLendingData(borrower, artworkId,\nstartDate, endDate, toLocation)
+activate lendingData
+
+lendingData --> WIP : saveToWIP(identifier, borrower, artworkId,\nstartDate, endDate, toLocation)
+
+WIP -> cancelWIP : abortAdmin
+activate cancelWIP
+
+cancelWIP --> Home : goHome
+
+@enduml

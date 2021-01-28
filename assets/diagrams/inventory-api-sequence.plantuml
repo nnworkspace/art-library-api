@@ -1,0 +1,16 @@
+@startuml
+title Alpha Org Artwork Inventory API\nSequence Diagram
+Home -> WIP : startAdmin
+activate WIP
+
+WIP -> artworkData : collectArtworkData(name, artform,\nlist<author>, serialNumber, description,\nobtainDate, itemLocation, list<image>)
+activate artworkData
+
+artworkData --> WIP : saveToWIP(identifier, name, artform,\nlist<author>, serialNumber, description,\nobtainDate, itemLocation, list<image>, status)
+
+WIP -> cancelWIP : abortAdmin
+activate cancelWIP
+
+cancelWIP --> Home : goHome
+
+@enduml
