@@ -28,7 +28,7 @@ These artifacts are also created and updated iteratively.
 * Use [schema.org](https://schema.org/) as a source for validating vocabularies. Example see: [Art-Library-API-Workflow.txt](./assets/Art-Library-API-Workflow.txt)
 * For banking industry perticularly interesting: [Banking Industry Architecture Network (BIAN)](https://bian.org/)
 * Common types of names:
-  - data names (Artwork)
-  - action names (CreateArtwork)
-  - state names (CreatedArtwork)
+  + data names (Artwork)
+  + action names (CreateArtwork)
+  + state names (CreatedArtwork)
 
