@@ -6,7 +6,90 @@ alps:
     value: "This is the ALPS document for Alpha Org's **Art Library :: Inventory API**"
 
   descriptors:
-    # vocabulary properties 
-    - id: home
-      type: safe
-      returns: '#inventory'
+    # vocabulary properties
+    - id: "identifier"
+      type: "semantic"
+      text: "Unique identifier within Alpha Org. This is not the serial number of the item. This identifier is automatically generated when a new artwork item is created in the system."
+      ref: "https://schema.org/identifier"
+
+    - id: "headline"
+      type: "semantic"
+      text: "Title of the artwork"
+      ref: "https://schema.org/headline"
+
+    - id: "artform"
+      type: "semantic"
+      text: "Form of the artwork: painting? photograph? sculpture? others?"
+      ref: "https://schema.org/artform"
+
+    - id: "authors"
+      type: "semantic"
+      text: "Authors of this artwork"
+      ref: "https://schema.org/author"
+
+    - id: "serialNumber"
+      type: "semantic"
+      text: "Serial number of the artwork. If the artwork does not have a serial number, such as an original painting from an artist, then this number is simply the examplar number, usually 1."
+      ref: "https://schema.org/serialNumber"
+
+    - id: "description"
+      type: "semantic"
+      text: "Description of the artwork"
+      ref: "https://schema.org/description"
+
+    - id: "obtainDate"
+      type: "semantic"
+      text: "Date on which Alpha Org obtained the ownership of this artwork."
+      ref: "https://schema.org/Date"
+
+    - id: "itemLocation"
+      type: "semantic"
+      text: "Location of the storage of the artwork item"
+      ref: "https://schema.org/itemLocation"
+
+    - id: "images"
+      type: "semantic"
+      text: "Images of the artwork"
+      ref: "https://schema.org/image"
+
+    # reference grouping
+    - id: "wip"
+      type: "group"
+      descriptor: 
+        - href: "#identifier"
+        - href: "#headline"
+        - href: "#artform"
+        - href: "#authors"
+        - href: "#serialNumber"
+        - href: "#description"
+        - href: "#obtainDate"
+        - href: "#itemLocation"
+        - href: "#images"
+
+    # actions
+    - id: "startCreatingArtwork"
+      type: "unsafe"
+      rt: "wip"
+
+    - id: "collectArtworkData"
+      type: "safe"
+      rt: "wip"
+      descriptor:
+        - href: "#identifier"
+
+    - id: "saveToWIP"
+      type: "idempotent"
+      rt: "wip"
+      descriptor:
+        - href: "#identifier"
+        - href: "#headline"
+        - href: "#artform"
+        - href: "#authors"
+        - href: "#serialNumber"
+        - href: "#description"
+        - href: "#obtainDate"
+        - href: "#itemLocation"
+        - href: "#images" 
+
+    - id: goHome
+      type: "safe"

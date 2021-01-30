@@ -13,13 +13,13 @@ WIP -> FinalizeWIP -> Home
 
 Home 
 -> Artwork 
--> CreateArtwork(name, artform, list<author>, serialNumber, description, obtainDate, itemLocation, list<image>)
+-> CreateArtwork(identifier, headline, artform, list<author>, serialNumber, description, obtainDate, itemLocation, list<image>)
 -> CreatedArtwork
 -> Home
 
 Home
 -> LendAction
--> CreateLendAction(borrower, artworkId, startDate, endDate, toLocation)
+-> CreateLendAction(identifier, borrower, artworkId, startDate, endDate, toLocation)
 -> CreatedLendAction
 -> Home
 
@@ -27,12 +27,12 @@ Validated Names
 * Artwork := https://glossary.alpha.org/Artwork
 * CreateArtwork := https://glossary.alpha.org/CreateArtwork
 * CreatedArtwork := https://glossary.alpha.org/CreatedArtwork
-* name := https://schema.org/name
+* headline := https://schema.org/headline
 * artform := https://schema.org/artform
 * author := https://schema.org/author
 * serialNumber := https://schema.org/serialNumber
 * description := https://schema.org/description
-* obtainDate := https://glossary.alpha.org/obtainDate
+* obtainDate := https://schema.org/Date
 * itemLocation := https://schema.org/itemLocation
 * image := https://schema.org/image
 * LendAction := https://schema.org/LendAction
