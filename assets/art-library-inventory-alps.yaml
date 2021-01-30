@@ -89,7 +89,19 @@ alps:
         - href: "#description"
         - href: "#obtainDate"
         - href: "#itemLocation"
-        - href: "#images" 
+        - href: "#images"
+
+    - id: "completeCreatingArtwork"
+      type: "idempotent"
+      rt: "wip"
+      descriptor:
+        - href: "#identifier"
+
+    - id: "abandonCreatingArtwork"
+      type: "idempotent"
+      rt: "wip"
+      descriptor:
+        - href: "#identifier"
 
     - id: goHome
       type: "safe"

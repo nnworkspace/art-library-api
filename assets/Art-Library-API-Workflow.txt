@@ -27,6 +27,7 @@ Validated Names
 * Artwork := https://glossary.alpha.org/Artwork
 * CreateArtwork := https://glossary.alpha.org/CreateArtwork
 * CreatedArtwork := https://glossary.alpha.org/CreatedArtwork
+* identifier := https://schema.org/identifier
 * headline := https://schema.org/headline
 * artform := https://schema.org/artform
 * author := https://schema.org/author
@@ -37,10 +38,11 @@ Validated Names
 * image := https://schema.org/image
 * LendAction := https://schema.org/LendAction
 * borrower := https://schema.org/borrower
-* artworkId := https://glossary.alpha.org/artworkId
+* artworkId := https://schema.org/identifier
 * startDate := https://schema.org/startDate
 * endDate := https://schema.org/endDate
 * toLocation := https://schema.org/toLocation
+
 
 
 
