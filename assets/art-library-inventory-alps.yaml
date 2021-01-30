@@ -1,0 +1,12 @@
+alps:
+  version: '1.0'
+  title: "Art Library :: Inventory API"
+  doc:
+    type: "markdown"
+    value: "This is the ALPS document for Alpha Org's **Art Library :: Inventory API**"
+
+  descriptors:
+    # vocabulary properties 
+    - id: home
+      type: safe
+      returns: '#inventory'

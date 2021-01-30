@@ -56,7 +56,27 @@ further implementation in multiple technologies and API styles.
 
 ![API Description Formats](./images/alps-other-formats.png)
 
-We recommend the [*Application-Level Profile Semantics (ALPS)*](http://alps.io/) language for API description. 
+We recommend the [*Application-Level Profile Semantics (ALPS)*](http://alps.io/) language for API description, for its simplicity, conciseness, and expressiveness. 
+
+Official GitHub Repo for the alps spec is [here](https://github.com/alps-io/spec). 
+
+---
+**NOTE: The property "type" in ALPS descriptor**
+
+The property "type" in ALPS files have two groups of values. All nouns are of the type "semantic", and verbs have three types in the alps file: "safe", "unsafe" and "idempotent". 
+Here is the short explanation:
+
+* safe: readly only option, does not change state of the data
+* unsafe: write option, changes the state of data
+* idempotent: write options, changes the state of data. But the outcome is always the same, no matter how many times the option is performed. An idempotent option is an unsafe option. 
+---
+
+Here are the apls files in YAML format for our art library API. 
+
+* [Art Library :: Inventory API]()
+* [Art Library :: Lending API]()
+
+
 
 
 <style type="text/css">
@@ -64,7 +84,7 @@ We recommend the [*Application-Level Profile Semantics (ALPS)*](http://alps.io/)
     margin: auto;
     max-width: 44em;
     font-family: Calibri, sans-serif;
-    font-size: 18pt;
+    font-size: 13pt;
   }
 
   /* automatic heading numbering */
