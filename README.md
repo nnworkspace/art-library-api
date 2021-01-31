@@ -1,5 +1,8 @@
 # Art Library API
 
+Purpose of this repo is to demonstrate phases and steps for designing and developing APIs, with suitable toolings/automation in each phase and step.  
+
+
 API of Art Library. It consists of two main modules: 
 
 1. Artwork CRUD API for admins  
