@@ -6,7 +6,7 @@ Purpose of this repo is to demonstrate phases and steps for designing and develo
 API of Art Library. It consists of two main modules: 
 
 1. Artwork CRUD API for admins  
-2. API for lending artworks from the library. Target of this API are normal members in the Alpha Org, who want to borrow artworks from the library to decorate their offices.
+2. API for lending artworks from the library. End users of this API are normal members in the Alpha Org, who want to borrow artworks from the library to decorate their offices. The lending API may need a web frontend for the end users. So the direct consumer of this API are the developers of the lending frontend. 
 
 ## Main components of this API
 
