@@ -1,0 +1,430 @@
+openapi: 3.0.3
+info:
+  description: |
+    This is a server for Art Library of Alpha Org.
+  version: "0.1.0"
+  title: Art Library of Alpha Org
+  termsOfService: 'http://TODO'
+  contact:
+    email: nnworkspace@gmail.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/nnworkspace/artlibrary/1.0.0
+  - url: 'https://artlibrary.alpha.org/api'
+tags:
+  - name: artwork
+    description: Everything about a piece of artwork at Alpha Org
+    externalDocs:
+      description: Find out more
+      url: 'https://github.com/nnworkspace/art-library-api'
+  - name: artworks
+    description: a list of artworks
+  - name: lending
+    description: A record of lending of an artwork to an employee in the Alpha Org.
+    externalDocs:
+      description: Find out more
+      url: 'https://github.com/nnworkspace/art-library-api'
+  - name: lendings
+    description: a list of records of lendings to an employee in the Alpha Org.
+paths:
+  /artworks:
+    get:
+      tags:
+        - artworks
+      summary: Get a list of artworks.
+      description: Returns a list of artworks. The result can be filtered by query parameters.
+      operationId: getArtworks
+      parameters: # TODO: add artforms and artStyles in the parameter later. Value of artForm should be enum
+        - in: query
+          name: name
+          required: false
+          schema:
+            type: string
+            example: Mona Lisa
+          description: name of the artwork, can be a partial string of name
+        - in: query
+          name: description
+          required: false
+          schema:
+            type: string
+            example: Portrait painting with a mysterious smile
+          description: description of the artwork, can be a partial string of description
+        - in: query
+          name: artists
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+            minItems: 1
+            example: [ 'da Vinci' , 'Monet', 'Lowry', 'Cartier-Bresson']
+          description: (Partial) name of the artists, relationship between the artists in the parameter list is 'or'.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtworksResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ArtworksResponse'
+        '400':
+          description: Invalid query parameters supplied
+        '404':
+          description: No artworks found
+      security:
+        - api_key: [ ]
+    post:
+      tags:
+        - artwork
+      summary: create an artwork in the artwork list
+      operationId: addArtwork
+      responses:
+        '405':
+          description: Invalid input
+      security:
+        - artworks_auth:
+            - 'write:artworks'
+            - 'read:artworks'
+      requestBody:
+        $ref: '#/components/requestBodies/NewArtwork'
+  '/artworks/{artworkId}':
+    get:
+      tags:
+        - artwork
+      summary: Find artwork by ID.
+      description: Returns a single artwork with its properties such as name, description, artists, storage location, etc.
+      operationId: getArtworkById
+      parameters:
+        - in: path
+          name: artworkId
+          description: ID of a artwork. ID of an artwork is a combination of the artist name and the artwork name and optional integer identifier
+          example: da-vinci-mona-lisa
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Artwork'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Artwork'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Artwork not found
+      security:
+        - api_key: []
+    put:
+      tags:
+        - artwork
+      summary: Replace a artwork
+      operationId: replaceColorAtSelfURL
+      parameters:
+        - name: api_key
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: artworkId
+          in: path
+          description: Artwork id to replace
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Invalid artworkId supplied
+        '404':
+          description: Artwork not found
+        '405':
+          description: Validation exception
+      security:
+        - artworks_auth:
+            - 'write:artworks'
+            - 'read:artworks'
+      requestBody:
+        $ref: '#/components/requestBodies/Artwork'
+    patch:
+      tags:
+        - artwork
+      summary: Update an exisiting artwork
+      operationId: updateArtwork
+      parameters:
+        - name: api_key
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: artworkId
+          in: path
+          description: Color id to update
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Invalid artworkId supplied
+        '404':
+          description: Color not found
+        '405':
+          description: Validation exception
+      security:
+        - artworks_auth:
+            - 'write:artworks'
+            - 'read:artworks'
+      requestBody:
+        $ref: '#/components/requestBodies/Artwork'  # TODO: This should not be the full Artwork object, fix later.
+    delete:
+      tags:
+        - artwork
+      summary: Deletes a piece of artwork
+      operationId: deleteArtwork
+      parameters:
+        - name: api_key
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: artworkId
+          in: path
+          description: Id of the artwork to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Artwork not found
+      security:
+        - artworks_auth:
+            - 'write:artworks'
+            - 'read:artworks'
+  '/artworks/{artworkId}/images':
+    post:
+      tags:
+        - artwork
+      summary: uploads an image
+      operationId: uploadImage
+      parameters:
+        - name: artworkId
+          in: path
+          description: ID of the artwork
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      security:
+        - artworks_auth:
+            - 'write:artworks'
+            - 'read:artworks'
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+components:
+  #-------------------------------
+  # Reusable schemas (data models)
+  #-------------------------------
+  schemas:
+    ArtForm:
+      type: string
+      enum: [painting, photograph, print, sculpture, assemblage, collage]
+    NewArtwork:
+      type: object
+      required:
+        - name
+        - artForm
+        - storageLocation
+      properties:
+        name:
+          type: string
+          example: Mona Lisa
+          nullable: false
+        artForm:
+          nullable: false
+          type: string
+          enum: [ painting, photograph, print, sculpture, assemblage, collage ]
+        description:
+          type: string
+          example: >-
+            Portrait painting with a mysterious smile
+        storageLocation:
+          type: string
+          example: building 12 room 304 shelf 5 slot 67
+          nullable: false
+        artist:
+          type: string
+          example: Leonardo da Vinci
+        imageUrls:
+          type: array
+          items:
+            type: string
+        dateObtained:
+          type: string
+          format: date
+          example: 1998-08-08
+          description: The date when Alpha Org obtained this piece of artwork.
+    Artwork:
+      allOf:
+        - $ref: '#/components/schemas/NewArtwork'
+        - type: object
+          required:
+            - id
+          # other properties that a new artwork does not have
+          properties:
+            id:
+              type: string
+              description: ID of a artwork. ID of an artwork is a combination of the artist name and the artwork name and optional integer identifier
+              example: da-vinci-mona-lisa
+              nullable: false
+            self:
+              type: string
+              format: uri
+              example: artworks/da-vinci-mona-lisa
+              nullable: false
+            lastUpdate:
+              type: string
+              format: date-time
+              example: 2017-07-21T17:32:28Z
+              description: Time of last update of this record, a timestamp.
+    ArtworkMeta:
+      type: object
+      required:
+        - id
+        - self
+        - name
+        - artForm
+        - storageLocation
+      properties:
+        id:
+          type: string
+          description: ID of a artwork. ID of an artwork is a combination of the artist name and the artwork name and optional integer identifier
+          example: da-vinci-mona-lisa
+          nullable: false
+        self:
+          type: string
+          format: uri
+          example: artworks/da-vinci-mona-lisa
+          nullable: false
+        name:
+          type: string
+          example: Mona Lisa
+          nullable: false
+        artForm:
+          nullable: false
+          type: string
+          enum: [ painting, photograph, print, sculpture, assemblage, collage ]
+        description:
+          type: string
+          example: >-
+            Portrait painting with a mysterious smile
+        storageLocation:
+          type: string
+          example: building 12 room 304 shelf 5 slot 67
+          nullable: false
+        artist:
+          type: string
+          example: Leonardo da Vinci
+        imageUrls:
+          type: array
+          items:
+            type: string
+        dateObtained:
+          type: string
+          format: date
+          example: 1998-08-08
+          description: The date when Alpha Org obtained this piece of artwork.
+    ArtworksResponse: # Can be referenced as '#/components/schemas/ArtworksResponse'
+      type: object
+      properties:   # Add some metadata of the list
+        totalColors:
+          type: integer
+          minimum: 0
+          example: 1
+        artworkMetas:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArtworkMeta'
+    Tag:  # Can be referenced as '#/components/schemas/Tag'
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: integer
+        self:
+          type: string  # URL to the object itself
+          format: uri
+        name:
+          type: string
+          example: impressionism
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+
+  #-------------------------------
+  # Reusable operation parameters
+  #-------------------------------
+  requestBodies:
+    NewArtwork:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NewArtwork'
+      description: A new Artwork object that needs to be created on the server
+      required: true
+    Artwork:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Artwork'
+      description: Artwork object that needs to be updated on the server
+      required: true
+  securitySchemes:
+    api_key: # name for the API Key authentication scheme
+      type: apiKey
+      in: header
+      name: x-api-key # name of the HTTP header
+    artworks_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: 'http://artworks.swagger.io/oauth/dialog'
+          scopes:
+            'write:artworks': create artworks, modify properties of artworks
+            'read:artworks': read artworks
+
+  #-------------------------------
+  # Reusable responses
+  #-------------------------------
