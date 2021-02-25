@@ -288,6 +288,11 @@ components:
           format: date
           example: 1998-08-08
           description: The date when Alpha Org obtained this piece of artwork.
+        marketValue:
+          type: number
+          format: currency
+          description: Market value of this piece of artwork. Unit in Euro.
+          example: 288.88
     Artwork:
       allOf:
         - $ref: '#/components/schemas/NewArtwork'
@@ -358,6 +363,11 @@ components:
           format: date
           example: 1998-08-08
           description: The date when Alpha Org obtained this piece of artwork.
+        marketValue:
+          type: number
+          format: currency
+          description: Market value of this piece of artwork. Unit in Euro.
+          example: 288.88
     ArtworksResponse: # Can be referenced as '#/components/schemas/ArtworksResponse'
       type: object
       properties:   # Add some metadata of the list
