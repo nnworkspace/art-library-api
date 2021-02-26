@@ -279,6 +279,14 @@ components:
         artist:
           type: string
           example: Leonardo da Vinci
+        producer:
+          type: string
+          description: If the artwork is a print or other manufactured article, record the publisher or manufacturer here.
+          example: Fine Art Production Co. Ltd, London, UK.
+        productSerialNumber:
+          type: string
+          description: If the artwork has a serial number, record it in this property.
+          example: TSN3987528
         imageUrls:
           type: array
           items:
@@ -358,6 +366,14 @@ components:
           type: array
           items:
             type: string
+        producer:
+          type: string
+          description: If the artwork is a print or other manufactured article, record the publisher or manufacturer here.
+          example: Fine Art Production Co. Ltd, London, UK.
+        productSerialNumber:
+          type: string
+          description: If the artwork has a serial number, record it in this property.
+          example: TSN3987528
         dateObtained:
           type: string
           format: date
