@@ -65,14 +65,26 @@ paths:
             minItems: 1
             example: [ 'da Vinci' , 'Monet', 'Lowry', 'Cartier-Bresson']
           description: (Partial) name of the artists, relationship between the artists in the parameter list is 'or'.
+        - in: query
+          name: limit
+          required: true
+          schema:
+            type: integer
+            format: int32
+            example: 25
+          description: Specifies in response, how many records should be contained in a page.
+        - in: query
+          name: offset
+          required: true
+          schema:
+            type: integer
+            example: 100
+          description: Specifies how many records should be skipped.
       responses:
         '200':
           description: successful operation
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/ArtworksResponse'
-            application/xml:
               schema:
                 $ref: '#/components/schemas/ArtworksResponse'
         '400':
@@ -323,6 +335,10 @@ components:
           format: date
           description: Nearst next date when this artwork is available for lending.
           example: 2021-02-28
+        comment:
+          type: string
+          description: Any comment about this artwork
+          example: This piece has a weak corner which looks a bit funny
         createdOn:
           nullable: false
           type: string
@@ -444,13 +460,17 @@ components:
           format: date
           description: Nearst next date when this artwork is available for lending.
           example: 2021-02-28
+        comment:
+          type: string
+          description: Any comment about this artwork
+          example: This piece has a weak corner which looks a bit funny
     ArtworksResponse: # Can be referenced as '#/components/schemas/ArtworksResponse'
       type: object
       properties:   # Add some metadata of the list
-        totalColors:
+        totalArtworks:
           type: integer
           minimum: 0
-          example: 1
+          example: 123
         artworkMetas:
           type: array
           items:
