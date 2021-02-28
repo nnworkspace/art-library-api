@@ -1,0 +1,175 @@
+openapi: 3.0.3
+info:
+  description: |
+    This is a server for Art Library of Alpha Org.
+  version: "0.1.0"
+  title: Art Library of Alpha Org
+  termsOfService: 'http://TODO'
+  contact:
+    email: nnworkspace@gmail.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/nnworkspace/artlibrary/1.0.0
+  - url: 'https://artlibrary.alpha.org/api'
+tags:
+  - name: artwork
+    description: Everything about a piece of artwork at Alpha Org
+    externalDocs:
+      description: Find out more
+      url: 'https://github.com/nnworkspace/art-library-api'
+  - name: artworks
+    description: a list of artworks
+  - name: lending
+    description: A record of lending of an artwork to an employee in the Alpha Org.
+    externalDocs:
+      description: Find out more
+      url: 'https://github.com/nnworkspace/art-library-api'
+  - name: lendings
+    description: a list of records of lendings to an employee in the Alpha Org.
+paths:
+  /lendings:
+    get:
+      tags:
+        - lendings
+      summary: Get a list of lending records.
+      description: Returns a list of lending records. The result can be filtered by query parameters.
+      operationId: getLendings
+      parameters:
+        - in: query
+          name: userId
+          required: false
+          schema:
+            type: string
+            example: userLender
+          description: A userId.
+        - in: query
+          name: artworkName
+          required: false
+          schema:
+            type: string
+            example: Mona Lisa
+          description: A userId.
+        - in: query
+          name: limit
+          required: true
+          schema:
+            type: integer
+            format: int32
+            example: 25
+          description: Specifies in response, how many records should be contained in a page.
+        - in: query
+          name: offset
+          required: true
+          schema:
+            type: integer
+            example: 100
+          description: Specifies how many records should be skipped.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LendingsResponse'
+        '400':
+          description: Invalid query parameters supplied
+        '404':
+          description: No lending records found
+      security:
+        - api_key: [ ]
+#    post:
+#      tags:
+#        - lending
+#      summary: create an artwork in the artwork list
+#      operationId: addArtwork
+#      responses:
+#        '405':
+#          description: Invalid input
+#      security:
+#        - artworks_auth:
+#            - 'write:artworks'
+#            - 'read:artworks'
+#      requestBody:
+#        $ref: '#/components/requestBodies/NewArtwork'
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+components:
+  #-------------------------------
+  # Reusable schemas (data models)
+  #-------------------------------
+  schemas:
+
+    LendingMeta:
+      type: object
+      required:
+        - id
+        - self
+        - artworkId
+        - userId
+        - lendingStatus
+        - startDate
+        - endDate
+      properties:
+        id:
+          nullable: false
+          type: string
+          description: ID of a lending record. This is an automatically generated UUID, basically time based.
+          example: 123e4567-e89b-12d3-a456-426614174000
+        self:
+          nullable: false
+          type: string
+          format: uri
+          example: lendings/123e4567-e89b-12d3-a456-426614174000
+        artworkId:
+          nullable: false
+          type: string
+          description: ID of a artwork. ID of an artwork is a combination of the artist name and the artwork name and optional integer identifier
+          example: da-vinci-mona-lisa
+        userId:
+          nullable: false
+          type: string
+          description: ID of the user who borrowed the artwork.
+          example: userLender
+        lendingStatus:
+          nullable: false
+          type: string
+          enum: ['reserved', 'sent to lender', 'return reported', 'lending closed']
+        startDate:
+          nullable: false
+          type: string
+          format: date
+          example: 2021-02-28
+        endDate:
+          nullable: false
+          type: string
+          format: date
+          example: 2021-06-08
+    LendingsResponse: # Can be referenced as '#/components/schemas/LendingsResponse'
+      type: object
+      properties: # Add some metadata of the list
+        totalLendingRecords:
+          type: integer
+          minimum: 0
+          example: 123
+        lendingMetas:
+          type: array
+          items:
+            $ref: '#/components/schemas/LendingMeta'
+
+  #-------------------------------
+  # Reusable operation parameters
+  #-------------------------------
+  securitySchemes:
+    api_key:
+      $ref: 'art-library-inventory-api.yml#/components/securitySchemes/api_key'
+    artworks_auth:
+      $ref: 'art-library-inventory-api.yml#/components/securitySchemes/artworks_auth'
+
+  #-------------------------------
+  # Reusable responses
+  #-------------------------------
