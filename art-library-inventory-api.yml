@@ -129,9 +129,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Artwork'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Artwork'
         '400':
           description: Invalid ID supplied
         '404':
@@ -181,7 +178,7 @@ paths:
             type: string
         - name: artworkId
           in: path
-          description: Color id to update
+          description: Artwork id to update
           required: true
           schema:
             type: string
@@ -189,7 +186,7 @@ paths:
         '400':
           description: Invalid artworkId supplied
         '404':
-          description: Color not found
+          description: Artwork not found
         '405':
           description: Validation exception
       security:
@@ -267,7 +264,7 @@ components:
       enum: [painting, photograph, print, sculpture, assemblage, collage]
     ArtworkStatus:
       type: string
-      enum: ['available', 'reserved', 'in use', 'return reported']
+      enum: ['available', 'reserved', 'in use', 'return reported', 'record deleted']
     NewArtwork:
       type: object
       required:
@@ -325,7 +322,7 @@ components:
         status:
           nullable: false
           type: string
-          enum: ['available', 'reserved', 'in use', 'return reported']
+          enum: ['available', 'reserved', 'in use', 'return reported', 'not for lending', 'record deleted']
           description: Status of this artwork in alpha org.
           default: available
           example: available
@@ -450,7 +447,7 @@ components:
         status:
           nullable: false
           type: string
-          enum: [ 'available', 'reserved', 'in use', 'return reported' ]
+          enum: [ 'available', 'reserved', 'in use', 'return reported', 'record deleted' ]
           description: Status of this artwork in alpha org.
           default: available
           example: available
@@ -508,14 +505,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/NewArtwork'
-      description: A new Artwork object that needs to be created on the server
+      description: A new Artwork object to be created on the server
       required: true
     Artwork:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Artwork'
-      description: Artwork object that needs to be updated on the server
+      description: Artwork object to be updated on the server
       required: true
   securitySchemes:
     api_key: # name for the API Key authentication scheme
