@@ -81,20 +81,134 @@ paths:
           description: No lending records found
       security:
         - api_key: [ ]
-#    post:
-#      tags:
-#        - lending
-#      summary: create an artwork in the artwork list
-#      operationId: addArtwork
-#      responses:
-#        '405':
-#          description: Invalid input
-#      security:
-#        - artworks_auth:
-#            - 'write:artworks'
-#            - 'read:artworks'
-#      requestBody:
-#        $ref: '#/components/requestBodies/NewArtwork'
+    post:
+      tags:
+        - lending
+      summary: create lending in the lendings list
+      operationId: createLending
+      responses:
+        '405':
+          description: Invalid input
+      security:
+        - artworks_auth:
+            - 'write:artworks'
+            - 'read:artworks'
+      requestBody:
+        $ref: '#/components/requestBodies/NewLending'
+  '/lendings/{lendingId}':
+    get:
+      tags:
+        - lending
+      summary: Find lending by ID.
+      description: Returns a single lending record with its properties such as lender's userId, startDate, endDate, etc.
+      operationId: getLendingById
+      parameters:
+        - in: path
+          name: lendingId
+          description: ID of a lending record. This is an automatically generated UUID, basically time based..
+          example: 123e4567-e89b-12d3-a456-426614174000
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lending'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Lending Record not found
+      security:
+        - api_key: [ ]
+    put:
+      tags:
+        - lending
+      summary: Replace a lending record
+      operationId: replaceLendingAtSelfURL
+      parameters:
+        - name: api_key
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: lendingId
+          in: path
+          description: Lending id to replace
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Invalid lendingId supplied
+        '404':
+          description: Lending not found
+        '405':
+          description: Validation exception
+      security:
+        - artworks_auth:
+            - 'write:artworks'
+            - 'read:artworks'
+      requestBody:
+        $ref: '#/components/requestBodies/Lending'
+    patch:
+      tags:
+        - lending
+      summary: Update an exisiting lending
+      operationId: updateLending
+      parameters:
+        - name: api_key
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: lendingId
+          in: path
+          description: Lending id to update
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Invalid lendingId supplied
+        '404':
+          description: Lending not found
+        '405':
+          description: Validation exception
+      security:
+        - artworks_auth:
+            - 'write:artworks'
+            - 'read:artworks'
+      requestBody:
+        $ref: '#/components/requestBodies/Lending'  # TODO: This should not be the full Lending object, fix later.
+    delete:
+      tags:
+        - lending
+      summary: Deletes a lending record
+      operationId: deleteLending
+      parameters:
+        - name: api_key
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: lendingId
+          in: path
+          description: Id of the lending record to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Lending not found
+      security:
+        - artworks_auth:
+            - 'write:artworks'
+            - 'read:artworks'
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
@@ -103,7 +217,127 @@ components:
   # Reusable schemas (data models)
   #-------------------------------
   schemas:
-
+    LendingStatus:
+      type: string
+      enum: [ 'reserved', 'sent to lender', 'return reported', 'lending closed', 'record deleted' ]
+    NewLending:
+      type: object
+      required:
+        - id
+        - self
+        - artworkId
+        - userId
+        - lendingStatus
+        - startDate
+        - endDate
+        - createdOn
+        - createdBy
+        - lastUpdatedOn
+        - lastUpdatedBy
+      properties:
+        id:
+          nullable: false
+          type: string
+          description: ID of a lending record. This is an automatically generated UUID, basically time based.
+          example: 123e4567-e89b-12d3-a456-426614174000
+        self:
+          nullable: false
+          type: string
+          format: uri
+          example: lendings/123e4567-e89b-12d3-a456-426614174000
+        artworkId:
+          nullable: false
+          type: string
+          description: ID of a artwork. ID of an artwork is a combination of the artist name and the artwork name and optional integer identifier
+          example: da-vinci-mona-lisa
+        userId:
+          nullable: false
+          type: string
+          description: ID of the user who borrowed the artwork.
+          example: userLender
+        lendingStatus:
+          nullable: false
+          type: string
+          enum: [ 'reserved', 'sent to lender', 'return reported', 'lending closed', 'record deleted' ]
+        startDate:
+          nullable: false
+          type: string
+          format: date
+          example: 2021-02-28
+        endDate:
+          nullable: false
+          type: string
+          format: date
+          example: 2021-06-08
+        createdOn:
+          nullable: false
+          type: string
+          format: date-time
+          description: Date and time when this record is created.
+          default: 2021-02-28T08:36:58Z
+          example: 2021-02-28T08:36:58Z
+        createdBy:
+          nullable: false
+          type: string
+          description: User id of the borrower who created this record.
+          default: user id of current borrower
+          example: ab1235cde
+        lastUpdatedOn:
+          nullable: false
+          type: string
+          format: date-time
+          description: Time of last update of this record, a timestamp.
+          default: 2021-02-28T08:36:58Z
+          example: 2021-02-28T08:36:58Z
+        lastUpdatedBy:
+          nullable: false
+          type: string
+          description: User id of the admin who last updated this record.
+          default: user id of current admin
+          example: ab1235cde
+    Lending:
+      allOf:
+        - $ref: '#/components/schemas/NewLending'
+        - type: object
+          required:
+            - id
+            - self
+          # other properties that a new artwork does not have
+          properties:
+            id:
+              nullable: false
+              type: string
+              description: ID of a artwork. ID of an artwork is a combination of the artist name and the artwork name and optional integer identifier
+              example: da-vinci-mona-lisa
+            self:
+              nullable: false
+              type: string
+              format: uri
+              example: artworks/da-vinci-mona-lisa
+            artworkSentOn:
+              nullable: true
+              type: string
+              format: date
+              description: Date when the artwork is sent to the lender.
+              default: 2021-02-28
+              example: 2021-02-28
+            artworkSentBy:
+              nullable: true
+              type: string
+              description: User id of the admin who sent the artwork to the lender
+              example: adminAdam
+            artworkRestoredOn:
+              nullable: true
+              type: string
+              format: date
+              description: Date when the artwork is restored to the art library.
+              default: 2021-02-28
+              example: 2021-02-28
+            artworkRestoredBy:
+              nullable: true
+              type: string
+              description: User id of the admin who restored the artwork to its storage location in the library, after a user has returned it.
+              example: adminBeate
     LendingMeta:
       type: object
       required:
@@ -138,7 +372,7 @@ components:
         lendingStatus:
           nullable: false
           type: string
-          enum: ['reserved', 'sent to lender', 'return reported', 'lending closed']
+          enum: ['reserved', 'sent to lender', 'return reported', 'lending closed', 'record deleted']
         startDate:
           nullable: false
           type: string
@@ -160,10 +394,35 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LendingMeta'
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
 
   #-------------------------------
   # Reusable operation parameters
   #-------------------------------
+  requestBodies:
+    NewLending:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NewLending'
+      description: A new Lending object to be created on the server
+      required: true
+    Lending:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Lending'
+      description: Lending object to be updated on the server
+      required: true
   securitySchemes:
     api_key:
       $ref: 'art-library-inventory-api.yml#/components/securitySchemes/api_key'
