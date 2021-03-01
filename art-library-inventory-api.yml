@@ -40,7 +40,7 @@ paths:
       operationId: getArtworks
       parameters: # TODO: add artforms and artStyles in the parameter later. Value of artForm should be enum
         - in: query
-          name: name
+          name: title
           required: false
           schema:
             type: string
@@ -268,7 +268,7 @@ components:
     NewArtwork:
       type: object
       required:
-        - name
+        - title
         - artForm
         - storageLocation
         - status
@@ -278,7 +278,7 @@ components:
         - lastUpdatedOn
         - lastUpdatedBy
       properties:
-        name:
+        title:
           type: string
           example: Mona Lisa
           nullable: false
@@ -387,7 +387,7 @@ components:
       required:
         - id
         - self
-        - name
+        - title
         - artForm
         - storageLocation
         - status
@@ -403,7 +403,7 @@ components:
           type: string
           format: uri
           example: artworks/da-vinci-mona-lisa
-        name:
+        title:
           nullable: false
           type: string
           example: Mona Lisa
@@ -518,7 +518,7 @@ components:
     api_key: # name for the API Key authentication scheme
       type: apiKey
       in: header
-      name: x-api-key # name of the HTTP header
+      name: X-API-Key # name of the HTTP header
     artworks_auth:
       type: oauth2
       flows:

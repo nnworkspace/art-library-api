@@ -47,7 +47,7 @@ paths:
             example: userLender
           description: A userId.
         - in: query
-          name: artworkName
+          name: artworkTitle
           required: false
           schema:
             type: string
