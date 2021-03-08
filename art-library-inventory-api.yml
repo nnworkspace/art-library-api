@@ -381,7 +381,12 @@ components:
               type: string
               format: uri
               example: artworks/da-vinci-mona-lisa
-            # TODO lendingHistory:
+            lendings:
+              type: array
+              items:
+                $ref: 'art-library-lending-api.yml#/components/schemas/LendingMeta'
+                description: Metadata of a Lending record, including lenderId, artworkId, start- and end-date of the lending, etc.
+              description: A list of lending records of this piece of artwork. If this artwork does not have any lending history, this array can be null.
     ArtworkMeta:
       type: object
       required:
