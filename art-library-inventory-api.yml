@@ -66,6 +66,24 @@ paths:
             example: [ 'da Vinci' , 'Monet', 'Lowry', 'Cartier-Bresson']
           description: (Partial) name of the artists, relationship between the artists in the parameter list is 'or'.
         - in: query
+          name: artForm
+          required: false
+          schema:
+            $ref: '#/components/schemas/ArtForm'
+        - in: query
+          name: artworkStatus
+          required: false
+          schema:
+            $ref: '#/components/schemas/ArtworkStatus'
+        - in: query
+          name: availableFrom
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2021-03-09
+            description: The earliest date, when an artwork item will be available.
+        - in: query
           name: limit
           required: true
           schema:
