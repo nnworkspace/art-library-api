@@ -449,6 +449,7 @@ components:
           type: array
           items:
             type: string
+            example: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/1280px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg"
         producer:
           type: string
           description: If the artwork is a print or other manufactured article, record the publisher or manufacturer here.
@@ -491,6 +492,10 @@ components:
           type: integer
           minimum: 0
           example: 123
+        offset:
+          type: integer
+          minimum: 0
+          example: 10
         artworkMetas:
           type: array
           items:
