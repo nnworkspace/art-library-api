@@ -13,7 +13,7 @@ info:
 servers:
   # Added by API Auto Mocking Plugin
   - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/nnworkspace/artlibrary/1.0.0
+    url: https://localhost:3000
   - url: 'https://artlibrary.alpha.org/api'
 tags:
   - name: artwork
