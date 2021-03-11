@@ -12,7 +12,7 @@
     "url": "git+https://github.com/nnworkspace/art-library-api.git"
   },
   "keywords": [
-    "api",
+    "api", "openapi",
     "artwork", "cool", "ascii", "faces"
   ],
   "author": "nn <nnworkspace@gmail.com>",
