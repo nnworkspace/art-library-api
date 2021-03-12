@@ -157,7 +157,7 @@ paths:
       tags:
         - artwork
       summary: Replace a artwork
-      operationId: replaceColorAtSelfURL
+      operationId: replaceArtworkAtSelfUrl
       parameters:
         - name: api_key
           in: header
